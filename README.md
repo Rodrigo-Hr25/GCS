@@ -14,7 +14,6 @@ It is a showcase of my ability to work under constraints and solve problems effi
 
 - The repository contains minimal commits and files:
   - CTF-related code and scripts
-  - Basic tests or examples
   - README file
 
 ## Professional Context
