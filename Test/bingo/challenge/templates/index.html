@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <style>
+            .col-sm {
+                width: 600px;
+                height: 200px;
+                overflow: hidden;
+            }
+
+            .col-sm img {
+                width: 400px;
+                height: 300px;
+                margin: -50px 0 0 -50px;
+            }
+            .myclass{
+                display: inline-block;
+                width:70px;
+                height:30px;
+            }
+        </style>
+        <title>Bingo</title>
+    </head>
+    <body>
+        <div>&nbsp</div>
+        <div class="container bg-light">
+            <div class="col-md-12 text-center">
+                <h1>Special bingo: match the right numbers ten times</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+              <div class="col-4">
+                <img src="https://i.imgur.com/zGHQb4O.gif">
+              </div>
+              <div class="col-sm">
+                    <img id="display" src="https://media.discordapp.net/attachments/885119465556164638/908503885704998973/7MVG.png">
+                </div>
+              <div class="col-4">
+                <img src="https://i.imgur.com/zGHQb4O.gif">
+              </div>
+            </div>
+          </div>
+        <div>&nbsp</div>
+        <div class="container bg-light">
+            <div class="col-md-12 text-center">
+                <button type="button" class="btn btn-primary" onclick="roll()">Roll</button>
+            </div>
+        </div>
+        <div></div>
+        <div class="container bg-light">
+            <div class="col-md-12 text-center">
+                <table class="table table-bordered">
+                    <tr>
+                        <th width="20%" id="r1">B</th>
+                        <th width="20%" id="r2">I</th>
+                        <th width="20%" id="r3">N</th>
+                        <th width="20%" id="r4">G</th>
+                        <th width="20%" id="r5">O</th>
+                    </tr>
+                    <tr>
+                        <td id="r6"><input id="square0" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r7"><input id="square1" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r8"><input id="square2" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r9"><input id="square3" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r10"><input id="square4" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                    </tr>
+                    <tr>
+                        <td id="r11"><input id="square5" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r12"><input id="square6" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r13"><input id="square7" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r14"><input id="square8" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r15"><input id="square9" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                    </tr>
+                    <tr>
+                        <td id="r16"><input id="square10" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r17"><input id="square11" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="free">Free</td>
+                        <td id="r18"><input id="square12" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r19"><input id="square13" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                    </tr>
+                    <tr>
+                        <td id="r20"><input id="square14" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r21"><input id="square15" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r22"><input id="square16" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r23"><input id="square17" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r24"><input id="square18" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                    </tr>
+                    <tr>
+                        <td id="r25"><input id="square19" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r26"><input id="square20" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r27"><input id="square21" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r28"><input id="square22" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                        <td id="r29"><input id="square23" class="myclass" type="button" value="" onClick="btnclick(this.id)"/></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    <div class="container bg-light">
+        <div class="col-md-12 text-center">
+            <h2 id="answer"></h2>
+        </div>
+    </div>
+</div>
+    </body>
+    <script>
+        window.onload = init
+        const nums = [];
+        let count = 0;
+        let roll_count=0;
+        let select_count=0;
+        let selected = 0;
+        function init() {
+            for(let i = 0; i < 24; i++){
+                let r = Math.floor(Math.random() *100)
+                nums[i] = r
+                document.getElementById("square"+parseInt(i)).value = r;
+                document.getElementById("square"+parseInt(i)).style.backgroundColor = "white";
+            }
+            console.log(nums)
+        }
+        function btnclick(id) {
+            selected = document.getElementById(id).value;
+            if (select_count == roll_count){
+                select_count +=1;
+            }
+        }
+        function roll(){
+            if (roll_count + 1 == select_count ){
+                roll_count +=1;
+                var xhr = new XMLHttpRequest();
+                var url = "/generate";
+                xhr.open("GET", url);
+
+                xhr.setRequestHeader("Accept", "application/json");
+
+                xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    var xhrp = new XMLHttpRequest();
+                    var urlp = "/check";
+                    xhrp.open("POST", urlp);
+
+                    xhrp.setRequestHeader("Accept", "application/json");
+                    xhrp.setRequestHeader("Content-Type", "application/json");
+
+                    xhrp.onreadystatechange = function () {
+                    if (xhrp.readyState === 4) {
+                        var res = JSON.parse(xhrp.responseText);
+                        if (res["ANSWER"] % 100 == selected){
+                            let pos = nums.indexOf(res["ANSWER"] % 100);
+                            if (pos != -1) {
+                                document.getElementById("square"+parseInt(pos)).style.backgroundColor = "green";
+                                if (count == 10){
+                                    for(let i = 0; i < 24; i++){
+                                        let r = Math.floor(Math.random() *100)
+                                        nums[i] = r
+                                        document.getElementById("square"+parseInt(i)).innerHTML = r;
+                                        document.getElementById("square"+parseInt(i)).style.backgroundColor = "white";
+                                    }
+                                    document.getElementById("answer").style.display = "none";
+                                    document.getElementById("display").setAttribute("src","https://media.discordapp.net/attachments/885119465556164638/908503885704998973/7MVG.png")
+                                    count = 0;
+                                    alert("You won, but not really...")
+                                }
+                                }
+                                else {
+                                    for(let i = 0; i < 24; i++){
+                                        document.getElementById("square"+parseInt(i)).style.backgroundColor = "white";
+                                    }
+                                    count = 0;
+                                }
+                        }else{
+                            for(let i = 0; i < 24; i++){
+                                document.getElementById("square"+parseInt(i)).style.backgroundColor = "white";
+                            }
+                            count = 0;
+                        }
+                        document.getElementById("answer").style.display = "block";
+                        document.getElementById("answer").textContent = "You selected: "+selected+" | You rolled: "+parseInt(res["ANSWER"] % 100);
+                    }};
+
+                    var data = {"attempt": selected};
+
+                    xhrp.send(JSON.stringify(data));
+                }};
+
+                xhr.send();
+                document.getElementById("display").setAttribute("src","https://media.discordapp.net/attachments/885119465556164638/908503911369949274/7MVM.png")
+                document.getElementById("answer").textContent = "";
+            }else {
+                alert("Pick a number again before you roll");
+            }
+        }
+    </script>
+</html>
